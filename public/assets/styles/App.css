@@ -5,7 +5,8 @@
   --movie-poster-width: 250px;
   --gradient-mask: linear-gradient(rgba(0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
   --accent-color: #007fff;
-  --max-main-width: 1300px;
+  /* in pixels */
+  --max-main-width: 1300;
 }
 
 /* Resets */
@@ -20,7 +21,7 @@ html {
 
 /* General Stylings */
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: var(--text-theme-color);
   background-color: var(--bg-theme-color);
   min-width: 400px;
@@ -55,7 +56,7 @@ a {
 h2,
 h3,
 h4 {
-  font-family: "Alatsi", sans-serif;
+  font-family: 'Alatsi', sans-serif;
 }
 
 h1,
@@ -295,7 +296,7 @@ select {
   align-items: center;
 }
 .border-container::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   padding: var(--b);
@@ -561,7 +562,7 @@ select {
 
 /* Background image layer */
 .thumbnail-overlay::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -613,8 +614,15 @@ select {
 }
 
 .overlay-content p {
-  font-size: 0.7rem;
-  margin: 1rem 0;
+  font-size: 0.6rem;
+}
+
+.thumbnail-rating {
+  margin: 0;
+}
+
+.thumbnail-release-date{
+  margin: 0.2rem 0 1rem 0;
 }
 
 .overlay-buttons {
@@ -767,7 +775,7 @@ select {
 /* Detail Page Styling */
 .banner-section {
   box-sizing: border-box;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   aspect-ratio: 16/9;
 }
@@ -836,6 +844,10 @@ select {
   margin: auto 20px;
 }
 
+.movie-detail-title{
+  margin: 0 0 40px 0;
+}
+
 h2 {
   text-align: center;
 }
@@ -863,7 +875,8 @@ h2 {
 /* hard coded --max-main-width here because media query does not accept custom properties */
 @media (min-width: 1300px) {
   .banner-section {
-    transform: translateX(calc((var(--max-main-width) - 100vw) / 2));
+    width: 100%;
+    transform: translateX(calc((var(--max-main-width) - 100vw) / 2px));
   }
 }
 
@@ -1163,7 +1176,7 @@ p {
 
   /* Background image layer */
   .thumbnail-overlay::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -1210,13 +1223,24 @@ p {
   }
 
   .overlay-content h3 {
-    font-size: 1rem;
+    font-size: 1.3rem;
     padding-bottom: 1rem;
   }
 
   .overlay-content p {
     font-size: 0.6rem;
-    margin: 1rem 0;
+  }
+
+  .overlay-content p {
+    font-size: 0.6rem;
+  }
+  
+  .thumbnail-rating {
+    margin: 0;
+  }
+  
+  .thumbnail-release-date{
+    margin: 0.2rem 0 1rem 0;
   }
 
   .overlay-buttons {
@@ -1492,7 +1516,7 @@ p {
 
   /* Background image layer */
   .thumbnail-overlay::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -1544,8 +1568,15 @@ p {
   }
 
   .overlay-content p {
-    font-size: 0.7rem;
-    margin: 1rem 0;
+    font-size: 0.6rem;
+  }
+  
+  .thumbnail-rating {
+    margin: 0;
+  }
+  
+  .thumbnail-release-date{
+    margin: 0.2rem 0 1rem 0;
   }
 
   .overlay-buttons {

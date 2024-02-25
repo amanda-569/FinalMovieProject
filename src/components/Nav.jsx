@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import "../../public/assets/styles/main-nav.css";
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import '../../public/assets/styles/main-nav.css';
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -11,22 +11,25 @@ const Nav = () => {
 
   const [isSideBarActive, setIsSideBarActive] = useState(false);
   const [isNavActive, setIsNavActive] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [movies, setMovies] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const search = () => {
-    navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
-  };
-
-  const handleSearchInput = (e) => {
-    const queryString = e.target.value;
-    setSearchQuery(queryString);
-    if (queryString && location.pathname == "/search") {
-      search();
+    const query = searchQuery.trim();
+    if (query) {
+      navigate(`/search?query=${encodeURIComponent(query)}`);
+    } else {
+      navigate(`/search?query=`);
     }
   };
-  const checkEnterKeyPress = () => {
-    if (event.key === "Enter") {
+
+  useEffect(() => {
+    if (searchQuery && location.pathname === '/search') {
+      search();
+    }
+  }, [searchQuery, location.pathname]);
+
+  const checkEnterKeyPress = (event) => {
+    if (event.key === 'Enter') {
       search();
     }
   };
@@ -37,7 +40,9 @@ const Nav = () => {
         <input
           type="text"
           value={searchQuery}
-          onChange={(e) => handleSearchInput(e)}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+          }}
           onKeyDown={checkEnterKeyPress}
           placeholder="Search movie titles"
         />
@@ -53,15 +58,7 @@ const Nav = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const mainNav = document.querySelector(".main-nav");
       setIsNavActive(window.scrollY >= 10);
-      if (mainNav) {
-        if (window.scrollY >= 10) {
-          mainNav.classList.add("active");
-        } else {
-          mainNav.classList.remove("active");
-        }
-      }
     };
 
     const handleResize = () => {
@@ -70,26 +67,24 @@ const Nav = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize); // Remove resize event listener on component unmount
-
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize); // Remove resize event listener on component unmount
     };
   }, []);
 
   function toggleNav() {
     setIsSideBarActive(!isSideBarActive);
-    setSearchQuery(null);
+    setSearchQuery('');
   }
 
   return (
-    <div className={`main-nav ${isNavActive ? "active" : ""}`}>
+    <div className={`main-nav ${isNavActive ? 'active' : ''}`}>
       <div className="nav-container">
         <div className="icons">
-          {/* <div className="overlay" onClick={toggleNav}></div> */}
           <NavLink to="/">
             <img src="../../assets/images/MovieLogo.png" alt="Movie Logo" />
           </NavLink>
@@ -99,7 +94,7 @@ const Nav = () => {
           <button className="menu-open-btn" onClick={toggleNav}>
             <FontAwesomeIcon icon={faBars} />
           </button>
-          <nav className={`navbar ${isSideBarActive ? "active" : ""}`}>
+          <nav className={`navbar ${isSideBarActive ? 'active' : ''}`}>
             <div className="navbar-top">
               <img src="../../assets/images/MovieLogo.png" alt="Movie Logo" />
               <button className="menu-close-btn" onClick={toggleNav}>
